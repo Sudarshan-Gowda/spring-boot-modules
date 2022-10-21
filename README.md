@@ -1,2 +1,5 @@
 # Spring Boot Modules
-Spring Boot Rest API All In One
+This repo includes the collection of spring boot modules
+
+Modules list:
+
