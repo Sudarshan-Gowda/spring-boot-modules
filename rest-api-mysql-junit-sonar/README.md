@@ -96,12 +96,12 @@ replace the projectKey & login id in the above with your details.
 
 After executing above commands you should be able to see the below success message in your terminal.
 
-<img src="/docs/Pic-01.png" width="100%" height="100%">
+<img src="/rest-api-mysql-junit-sonar/docs/Pic-01.png" width="100%" height="100%">
 
 
 You can navigate to sonaqube dashboard in the browser using `http://localhost:9000/`
 
-<img src="/docs/Pic-02.png" width="100%" height="100%">
+<img src="/rest-api-mysql-junit-sonar/docs/Pic-02.png" width="100%" height="100%">
 
 
 
