@@ -14,11 +14,11 @@ The following items should be installed in your system:
 
 
 ### Technology Used:     
-  Java 8                                                                                                                                
-  Spring Boot & Spring Framework                                                                                                                         
-  JPA & Hibernate     
-  Junit and Mockito    
-  Sonarqube                                                                                                                  
+  * Java 8                                                                                                                                
+  * Spring Boot & Spring Framework                                                                                                                    
+  * JPA & Hibernate
+  * Junit and Mockito
+  * Sonarqube                                                                                                                  
                                                                                                                            
  
 ### Steps to clone the repository:
