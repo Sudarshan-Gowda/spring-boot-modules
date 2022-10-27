@@ -21,7 +21,7 @@ The following items should be installed in your system:
   Sonarqube                                                                                                                  
                                                                                                                            
  
-### Steps to Clone The Repository Application:
+### Steps to clone the repository:
 
 1) Download this Project from Git.
 ```
@@ -38,7 +38,7 @@ To build the whole project or all the module, you can execute the command - `mvn
 To build specific repo, navigate to the module and execute the above mvn command.
 
 
-### Steps to Setup and run the Sonaqube reports:
+### Steps to setup and run the sonaqube reports:
 There are multiple sites available in the Internet to download and setup the sonarqube. 
 
 If you are using mac-os you can make use of this site:
