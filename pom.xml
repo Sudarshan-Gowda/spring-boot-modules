@@ -25,6 +25,7 @@
 
 	<modules>
 		<module>rest-api-mysql-junit-sonar</module>
+		<module>rest-api-mysql-hibernate-mapping</module>
 	</modules>
 
 	<dependencies>
