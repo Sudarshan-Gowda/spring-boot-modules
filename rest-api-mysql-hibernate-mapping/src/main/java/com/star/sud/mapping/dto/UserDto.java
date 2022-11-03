@@ -2,6 +2,12 @@ package com.star.sud.mapping.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class UserDto implements Serializable {
 
 	// Static properties
@@ -12,12 +18,19 @@ public class UserDto implements Serializable {
 	///////////////////
 	private Integer id;
 
+	@JsonIgnore
 	private String password;
 
+	@NotNull(message = "email is mandatory")
+	@Email(message = "email should be valid")
 	private String email;
 
+	@NotNull(message = "firstName is mandatory")
+	@Size(min = 2, message = "firstName should be minimum of 2 char")
 	private String firstName;
 
+	@NotNull(message = "lastName is mandatory")
+	@Size(min = 2, message = "lastName should be minimum of 2 char")
 	private String lastName;
 
 	// Constructor
