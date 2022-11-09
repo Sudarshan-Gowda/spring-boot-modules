@@ -1,7 +1,10 @@
 package com.star.sud;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import com.star.sud.onetomany.bidirection_el_loading.service.BidirectionService02;
 
 @Component
 public class CommandLineRunnerImpl implements CommandLineRunner {
@@ -14,6 +17,9 @@ public class CommandLineRunnerImpl implements CommandLineRunner {
 
 //	@Autowired
 //	private BidirectionService01 bidirection01;
+
+	@Autowired
+	private BidirectionService02 bidirection02;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -37,6 +43,11 @@ public class CommandLineRunnerImpl implements CommandLineRunner {
 		// bidirection01.createTeacher();
 		// bidirection01.createTeacher02();
 		// bidirection01.createTeacher03();
+
+// **** BiDirectionService approaches - Eager/Lazy loading: *****//		
+		// bidirection02.createTeacher03();
+		bidirection02.retriveTeacherDetails();
+		bidirection02.retriveCourseDetails();
 
 	}
 
