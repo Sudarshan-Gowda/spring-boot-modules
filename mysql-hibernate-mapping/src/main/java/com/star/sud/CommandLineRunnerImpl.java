@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import com.star.sud.onetomany.bidirection_cascading.service.BidirectionService04;
+import com.star.sud.onetomany.bidirection_cascading_02.service.BidirectionService05;
 
 @Component
 public class CommandLineRunnerImpl implements CommandLineRunner {
@@ -25,8 +25,11 @@ public class CommandLineRunnerImpl implements CommandLineRunner {
 //	@Autowired
 //	private BidirectionService03 bidirection03;
 
+//	@Autowired
+//	private BidirectionService04 bidirection04;
+
 	@Autowired
-	private BidirectionService04 bidirection04;
+	private BidirectionService05 bidirection05;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -62,7 +65,9 @@ public class CommandLineRunnerImpl implements CommandLineRunner {
 
 // **** BiDirectionService approaches - Cascading: *****//		
 		// bidirection04.createCourseWithTeacher();
-		
+
+// **** Bidirectional approaches - Cascading: *****//		
+		bidirection05.createTeacherWithCourse();
 
 	}
 
