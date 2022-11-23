@@ -6,6 +6,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import com.star.sud.onetomany.bidirection_cascading_02.service.BidirectionService05;
+import com.star.sud.onetoone.unidirection_01.service.OneToOneUnidirectionService;
 
 @Component
 public class CommandLineRunnerImpl implements CommandLineRunner {
@@ -27,6 +28,9 @@ public class CommandLineRunnerImpl implements CommandLineRunner {
 
 //	@Autowired
 //	private BidirectionService04 bidirection04;
+
+	@Autowired
+	private OneToOneUnidirectionService oneToOneUnidirectionService;
 
 	@Autowired
 	private BidirectionService05 bidirection05;
@@ -67,7 +71,10 @@ public class CommandLineRunnerImpl implements CommandLineRunner {
 		// bidirection04.createCourseWithTeacher();
 
 // **** Bidirectional approaches - Cascading: *****//		
-		bidirection05.createTeacherWithCourse();
+		// bidirection05.createTeacherWithCourse();
+
+// **** Unidirectional approaches: *****//		
+		oneToOneUnidirectionService.createCourseMaterial();
 
 	}
 
