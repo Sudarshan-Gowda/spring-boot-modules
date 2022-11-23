@@ -8,13 +8,9 @@ import org.springframework.stereotype.Service;
 import com.star.sud.onetomany.bidirection_cascading.entity.Course06;
 import com.star.sud.onetomany.bidirection_cascading.entity.Teacher06;
 import com.star.sud.onetomany.bidirection_cascading.repository.Course06Repository;
-import com.star.sud.onetomany.bidirection_cascading.repository.Teacher06Repository;
 
 @Service
 public class BidirectionService04 {
-
-	@Autowired
-	private Teacher06Repository teacherRepo;
 
 	@Autowired
 	private Course06Repository courseRepo;
