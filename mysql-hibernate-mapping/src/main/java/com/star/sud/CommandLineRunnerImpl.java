@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import com.star.sud.onetoone.bidirection_02.service.OneToOneBidirection02Service;
+import com.star.sud.manytomany.bidirection.service.ManyToManyService;
 
 @Component
 public class CommandLineRunnerImpl implements CommandLineRunner {
@@ -37,8 +37,11 @@ public class CommandLineRunnerImpl implements CommandLineRunner {
 //	@Autowired
 //	private OneToOneBidirectionService oneToOneBidirectionService;
 
+//	@Autowired
+//	private OneToOneBidirection02Service oneToOneBidirection02Service;
+
 	@Autowired
-	private OneToOneBidirection02Service oneToOneBidirection02Service;
+	private ManyToManyService manyToManyService;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -85,7 +88,11 @@ public class CommandLineRunnerImpl implements CommandLineRunner {
 		// oneToOneBidirectionService.createCourseMaterial();
 
 // **** OneToOne Bidirectional approaches: -  Owning entity as Course (not holding reference) *****//	
-		oneToOneBidirection02Service.createCourseMaterial();
+		// oneToOneBidirection02Service.createCourseMaterial();
+
+		// **** ManyToMany Bidirectional approaches: - Owning entity as Course and
+		// Student as reference entity *****//
+		manyToManyService.createCourseStudents();
 
 	}
 
