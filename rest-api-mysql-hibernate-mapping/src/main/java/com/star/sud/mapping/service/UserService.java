@@ -48,8 +48,8 @@ public class UserService {
 		User entity = new User();
 		BeanUtils.copyProperties(request, entity);
 		User save = userRepository.save(entity);
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/users/{id}").buildAndExpand(save.getId())
-				.toUri();
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/users/{id}")
+				.buildAndExpand(save.getUserId()).toUri();
 
 		ResponseEntity.created(location).build();
 
@@ -61,7 +61,7 @@ public class UserService {
 	public ResponseEntity<Object> updateUser(Integer id, UserDto request) {
 		User entity = new User();
 		BeanUtils.copyProperties(request, entity);
-		entity.setId(id);
+		entity.setUserId(id);
 		User save = userRepository.save(entity);
 		BeanUtils.copyProperties(save, request);
 		return ResponseEntity.ok(request);
