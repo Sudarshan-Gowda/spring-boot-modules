@@ -5,12 +5,14 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -43,6 +45,9 @@ public class User extends AbstractEntity {
 
 	@Column(name = "GENDER")
 	private String gender;
+
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private AddressDetails addressDetails;
 
 	// Mapped Entities
 	///////////////////
@@ -120,6 +125,14 @@ public class User extends AbstractEntity {
 
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
+	}
+
+	public AddressDetails getAddressDetails() {
+		return addressDetails;
+	}
+
+	public void setAddressDetails(AddressDetails addressDetails) {
+		this.addressDetails = addressDetails;
 	}
 
 }
