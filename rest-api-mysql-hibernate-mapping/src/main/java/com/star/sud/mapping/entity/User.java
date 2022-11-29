@@ -1,5 +1,6 @@
 package com.star.sud.mapping.entity;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,7 +13,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "USER")
@@ -42,11 +46,16 @@ public class User extends AbstractEntity {
 	@Column(name = "LAST_NAME", nullable = false)
 	private String lastName;
 
-	@Column(name = "GENDER")
-	private String gender;
+	@OneToOne(optional = false)
+	@JoinColumn(name = "GENDER")
+	private Gender gender;
+
+	@Column(name = "DOB")
+	@Temporal(TemporalType.DATE)
+	private Date dob;
 
 	@OneToMany(mappedBy = "user")
-	private AddressDetails addressDetails;
+	private List<AddressDetails> addressDetails;
 
 	// Mapped Entities
 	///////////////////
@@ -106,14 +115,6 @@ public class User extends AbstractEntity {
 		this.userName = userName;
 	}
 
-	public String getGender() {
-		return gender;
-	}
-
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
-
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -126,12 +127,28 @@ public class User extends AbstractEntity {
 		this.roles = roles;
 	}
 
-	public AddressDetails getAddressDetails() {
+	public List<AddressDetails> getAddressDetails() {
 		return addressDetails;
 	}
 
-	public void setAddressDetails(AddressDetails addressDetails) {
+	public void setAddressDetails(List<AddressDetails> addressDetails) {
 		this.addressDetails = addressDetails;
+	}
+
+	public Gender getGender() {
+		return gender;
+	}
+
+	public void setGender(Gender gender) {
+		this.gender = gender;
+	}
+
+	public Date getDob() {
+		return dob;
+	}
+
+	public void setDob(Date dob) {
+		this.dob = dob;
 	}
 
 }

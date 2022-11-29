@@ -14,7 +14,7 @@ import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "ADDRESS_DETAILS", uniqueConstraints = {
-		@UniqueConstraint(name = "AddressTypeAndUser", columnNames = { "addressType", "user" }) })
+		@UniqueConstraint(name = "AddressTypeAndUser", columnNames = { "ADDRESS_TYPE", "USER_ID" }) })
 public class AddressDetails extends AbstractEntity {
 
 	private static final long serialVersionUID = 1439995038770745823L;
