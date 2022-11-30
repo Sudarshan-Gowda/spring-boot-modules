@@ -18,6 +18,11 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+
+import com.star.sud.mapping.common.CustomGenerator;
+
 @Entity
 @Table(name = "USER")
 public class User extends AbstractEntity {
@@ -27,9 +32,13 @@ public class User extends AbstractEntity {
 	// Private Properties
 	/////////////////////
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GenericGenerator(name = "USER_ID_SEQ", strategy = "com.star.sud.mapping.common.CustomGenerator", parameters = {
+			@Parameter(name = CustomGenerator.INCREMENT_PARAM, value = "50"),
+			@Parameter(name = CustomGenerator.VALUE_PREFIX_PARAMETER, value = "USER"),
+			@Parameter(name = CustomGenerator.NUMBER_FORMAT_PARAMETER, value = "%05d") })
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USER_ID_SEQ")
 	@Column(name = "USER_ID", nullable = false, unique = true)
-	private Integer userId;
+	private String userId;
 
 	@Column(name = "USER_NAME", nullable = false, unique = true)
 	private String userName;
@@ -67,11 +76,11 @@ public class User extends AbstractEntity {
 
 	// Getter & Setters
 	///////////////////
-	public Integer getUserId() {
+	public String getUserId() {
 		return userId;
 	}
 
-	public void setUserId(Integer userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 

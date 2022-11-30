@@ -58,7 +58,7 @@ public class UserService {
 		return ResponseEntity.created(location).body(request);
 	}
 
-	public ResponseEntity<Object> updateUser(Integer id, UserDto request) {
+	public ResponseEntity<Object> updateUser(String id, UserDto request) {
 		User entity = new User();
 		BeanUtils.copyProperties(request, entity);
 		entity.setUserId(id);
