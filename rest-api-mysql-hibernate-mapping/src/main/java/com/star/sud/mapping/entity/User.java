@@ -37,16 +37,16 @@ public class User extends AbstractEntity {
 			@Parameter(name = CustomGenerator.VALUE_PREFIX_PARAMETER, value = "USER"),
 			@Parameter(name = CustomGenerator.NUMBER_FORMAT_PARAMETER, value = "%05d") })
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USER_ID_SEQ")
-	@Column(name = "USER_ID", nullable = false, unique = true)
+	@Column(name = "USER_ID", nullable = false, unique = true, length = 50)
 	private String userId;
 
-	@Column(name = "USER_NAME", nullable = false, unique = true)
+	@Column(name = "USER_NAME", nullable = false, unique = true, length = 20)
 	private String userName;
 
 	@Column(name = "PASSWORD", nullable = false)
 	private String password;
 
-	@Column(name = "EMAIL", nullable = false, unique = true)
+	@Column(name = "EMAIL", nullable = false, unique = true, length = 150)
 	private String email;
 
 	@Column(name = "FIRST_NAME", nullable = false)

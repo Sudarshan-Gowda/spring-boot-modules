@@ -11,7 +11,7 @@ public class City extends AbstractEntity {
 
 	private static final long serialVersionUID = -5411815061102384849L;
 	@Id
-	@Column(name = "CODE", unique = true, nullable = false, updatable = false)
+	@Column(name = "CODE", unique = true, nullable = false, updatable = false, length = 3)
 	private String code;
 
 	@Column(name = "NAME", nullable = false)

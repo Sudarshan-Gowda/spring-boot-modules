@@ -14,7 +14,7 @@ public class Gender implements Serializable {
 	private static final long serialVersionUID = -2266568607038518557L;
 
 	@Id
-	@Column(name = "CODE", unique = true, nullable = false, updatable = false)
+	@Column(name = "CODE", unique = true, nullable = false, updatable = false, length = 3)
 	private String code;
 
 	@Column(name = "NAME", nullable = false)

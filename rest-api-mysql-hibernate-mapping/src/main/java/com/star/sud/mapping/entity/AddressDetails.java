@@ -21,10 +21,10 @@ public class AddressDetails extends AbstractEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ADDRESS_ID")
+	@Column(name = "ADDRESS_ID", length = 30)
 	private Integer addressId;
 
-	@Column(name = "ADDRESS_TYPE", nullable = false)
+	@Column(name = "ADDRESS_TYPE", nullable = false, length = 10)
 	private String addressType;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)

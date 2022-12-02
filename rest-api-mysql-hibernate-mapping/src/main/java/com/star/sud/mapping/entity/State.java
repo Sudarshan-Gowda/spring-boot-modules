@@ -12,7 +12,7 @@ public class State extends AbstractEntity {
 	private static final long serialVersionUID = -5107567802111056119L;
 
 	@Id
-	@Column(name = "CODE", unique = true, nullable = false, updatable = false)
+	@Column(name = "CODE", unique = true, nullable = false, updatable = false, length = 3)
 	private String code;
 
 	@Column(name = "NAME", nullable = false)
