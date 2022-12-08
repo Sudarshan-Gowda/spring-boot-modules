@@ -3,7 +3,6 @@ package com.star.sud.mapping.entity;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -55,8 +54,8 @@ public class User extends AbstractEntity {
 	@Column(name = "LAST_NAME", nullable = false)
 	private String lastName;
 
-	@OneToOne(optional = false)
-	@JoinColumn(name = "GENDER")
+	@OneToOne
+	@JoinColumn(name = "GENDER", referencedColumnName = "CODE", unique = false)
 	private Gender gender;
 
 	@Column(name = "DOB")
@@ -68,10 +67,9 @@ public class User extends AbstractEntity {
 
 	// Mapped Entities
 	///////////////////
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "USER_ROLE", joinColumns = {
-			@JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID") }, inverseJoinColumns = {
-					@JoinColumn(name = "ROLE_ID", referencedColumnName = "ROLE_ID") })
+	@ManyToMany
+	@JoinTable(name = "USER_ROLE", joinColumns = { @JoinColumn(name = "USER_ID") }, inverseJoinColumns = {
+			@JoinColumn(name = "ROLE_ID") })
 	private List<Role> roles;
 
 	// Getter & Setters

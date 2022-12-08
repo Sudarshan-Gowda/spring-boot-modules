@@ -1,7 +1,5 @@
 package com.star.sud.mapping.entity;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -9,12 +7,12 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "GENDER")
-public class Gender implements Serializable {
+public class Gender extends AbstractEntity {
 
 	private static final long serialVersionUID = -2266568607038518557L;
 
 	@Id
-	@Column(name = "CODE", unique = true, nullable = false, updatable = false, length = 3)
+	@Column(name = "CODE", unique = true, nullable = false, updatable = false, length = 20)
 	private String code;
 
 	@Column(name = "NAME", nullable = false)
@@ -25,6 +23,21 @@ public class Gender implements Serializable {
 
 	@Column(name = "STATUS", nullable = false)
 	private String status;
+
+	public Gender(String code) {
+		super();
+		this.code = code;
+	}
+
+	public Gender() {
+		super();
+	}
+
+	public Gender(String code, String name) {
+		super();
+		this.code = code;
+		this.name = name;
+	}
 
 	public String getCode() {
 		return code;

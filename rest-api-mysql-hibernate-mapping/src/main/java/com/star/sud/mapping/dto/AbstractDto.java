@@ -1,43 +1,29 @@
-package com.star.sud.mapping.entity;
+package com.star.sud.mapping.dto;
 
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+public abstract class AbstractDto implements Serializable {
 
-@MappedSuperclass
-public abstract class AbstractEntity implements Serializable {
+	// Static Properties
+	//////////////////
+	private static final long serialVersionUID = 3842352594707291443L;
 
 	// Private Properties
-	//////////////////////
-	private static final long serialVersionUID = 5233698226518337516L;
-
-	// Properties
-	///////////////////
-	@Column(name = "CREATED_BY")
+	////////////////
 	private String createdBy;
 
-	@CreationTimestamp
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "CREATED_DATE")
 	private Date createdDate;
 
-	@Column(name = "UPDATED_BY")
 	private String updatedBy;
 
-	@UpdateTimestamp
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "UPDATED_DATE")
 	private Date updatedDate;
 
-	// Getter & Setters
-	///////////////////
 	public String getCreatedBy() {
 		return createdBy;
 	}

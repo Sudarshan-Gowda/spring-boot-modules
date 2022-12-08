@@ -9,7 +9,12 @@ import javax.persistence.Table;
 @Table(name = "CITY")
 public class City extends AbstractEntity {
 
+	// Static Properties
+	/////////////////////
 	private static final long serialVersionUID = -5411815061102384849L;
+
+	// Private Properties
+	//////////////////////
 	@Id
 	@Column(name = "CODE", unique = true, nullable = false, updatable = false, length = 3)
 	private String code;
@@ -23,6 +28,19 @@ public class City extends AbstractEntity {
 	@Column(name = "STATUS", nullable = false)
 	private String status;
 
+	// Constructors
+	/////////////////
+	public City() {
+		super();
+	}
+
+	public City(String code) {
+		super();
+		this.code = code;
+	}
+
+	// Getter & Setters
+	//////////////
 	public String getCode() {
 		return code;
 	}

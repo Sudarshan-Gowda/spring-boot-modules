@@ -48,9 +48,6 @@ public class AddressDetails extends AbstractEntity {
 	@JoinColumn(name = "STATE", referencedColumnName = "CODE")
 	private State state;
 
-	@Column(name = "NATION")
-	private String nation;
-
 	@Column(name = "PIN_CODE", nullable = false)
 	private String pinCode;
 
@@ -109,14 +106,6 @@ public class AddressDetails extends AbstractEntity {
 
 	public void setAddressLine03(String addressLine03) {
 		this.addressLine03 = addressLine03;
-	}
-
-	public String getNation() {
-		return nation;
-	}
-
-	public void setNation(String nation) {
-		this.nation = nation;
 	}
 
 	public String getPinCode() {

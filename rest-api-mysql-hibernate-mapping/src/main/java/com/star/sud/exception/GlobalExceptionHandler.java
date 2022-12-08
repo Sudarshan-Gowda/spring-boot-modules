@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import com.star.sud.common.dto.ErrorDetails;
+import com.star.sud.common.dto.ErrorDetail;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
@@ -24,7 +24,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(ResourceNotFoundException.class)
 	public ResponseEntity<?> recordNotFoundException(ResourceNotFoundException ex, WebRequest request) {
 
-		ErrorDetails details = new ErrorDetails(ex.getMessage(), request.getDescription(false),
+		ErrorDetail details = new ErrorDetail(ex.getMessage(), request.getDescription(false),
 				Calendar.getInstance().getTime());
 		logger.error("recordNotFoundException: ", ex.getMessage());
 		return new ResponseEntity<>(details, HttpStatus.NOT_FOUND);
@@ -32,7 +32,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<?> globalExceptionHandler(Exception ex, WebRequest request) {
-		ErrorDetails details = new ErrorDetails(ex.getMessage(), request.getDescription(false),
+		ErrorDetail details = new ErrorDetail(ex.getMessage(), "Failed Transaction from backend server",
 				Calendar.getInstance().getTime());
 		logger.error("globalExceptionHandler: ", ex.getMessage());
 		return new ResponseEntity<>(details, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -45,7 +45,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		String collect = ex.getBindingResult().getFieldErrors().stream().map(error -> error.getDefaultMessage())
 				.collect(Collectors.joining(","));
 
-		ErrorDetails details = new ErrorDetails(collect, request.getDescription(false),
+		ErrorDetail details = new ErrorDetail(collect, request.getDescription(false),
 				Calendar.getInstance().getTime());
 
 		return new ResponseEntity<>(details, status);

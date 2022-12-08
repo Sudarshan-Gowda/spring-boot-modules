@@ -24,6 +24,19 @@ public class State extends AbstractEntity {
 	@Column(name = "STATUS", nullable = false)
 	private String status;
 
+	// Constructors
+	////////////////
+	public State() {
+		super();
+	}
+
+	public State(String code) {
+		super();
+		this.code = code;
+	}
+
+	// Getter & Setters
+	////////////////////
 	public String getCode() {
 		return code;
 	}

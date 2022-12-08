@@ -38,7 +38,7 @@ public class Post extends AbstractEntity {
 	@Column(name = "IMAGE", length = 2000)
 	private String image;
 
-	@OneToOne(optional = false)
+	@OneToOne
 	@JoinColumn(name = "POSTED_BY", referencedColumnName = "USER_ID")
 	private User user;
 

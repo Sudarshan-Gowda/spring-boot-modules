@@ -1,13 +1,16 @@
 package com.star.sud.mapping.dto;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+@JsonInclude(Include.NON_NULL)
 public class UserDto implements Serializable {
 
 	// Static properties
@@ -16,9 +19,11 @@ public class UserDto implements Serializable {
 
 	// private properties
 	///////////////////
-	private Integer id;
+	private String userId;
 
-	@JsonIgnore
+	@NotNull(message = "userName is mandatory")
+	private String userName;
+
 	private String password;
 
 	@NotNull(message = "email is mandatory")
@@ -33,28 +38,35 @@ public class UserDto implements Serializable {
 	@Size(min = 2, message = "lastName should be minimum of 2 char")
 	private String lastName;
 
+	private String gender;
+
+	@NotNull(message = "dob is mandatory")
+	private String dob;
+
+	private List<AddressDetailsDto> addressDetails;
+
+	private List<RoleDto> roles;
+
 	// Constructor
 	//////////////
 	public UserDto() {
 		super();
 	}
 
-	public UserDto(Integer id, String email, String firstName, String lastName) {
-		super();
-		this.id = id;
-		this.email = email;
-		this.firstName = firstName;
-		this.lastName = lastName;
+	public String getUserId() {
+		return userId;
 	}
 
-	// Setter & Getters
-	//////////////////////
-	public Integer getId() {
-		return id;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public String getPassword() {
@@ -87,6 +99,42 @@ public class UserDto implements Serializable {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getDob() {
+		return dob;
+	}
+
+	public void setDob(String dob) {
+		this.dob = dob;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public List<AddressDetailsDto> getAddressDetails() {
+		return addressDetails;
+	}
+
+	public void setAddressDetails(List<AddressDetailsDto> addressDetails) {
+		this.addressDetails = addressDetails;
+	}
+
+	public List<RoleDto> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<RoleDto> roles) {
+		this.roles = roles;
 	}
 
 }
