@@ -1,6 +1,5 @@
 package com.star.sud.exception;
 
-import java.util.Calendar;
 import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
@@ -14,7 +13,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import com.star.sud.common.dto.ErrorDetail;
+import com.star.sud.mapping.common.ErrorCode;
+import com.star.sud.mapping.util.GenerateResponse;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
@@ -22,34 +22,35 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	private static final Logger logger = LogManager.getLogger(GlobalExceptionHandler.class);
 
 	@ExceptionHandler(ResourceNotFoundException.class)
-	public ResponseEntity<?> recordNotFoundException(ResourceNotFoundException ex, WebRequest request) {
+	public ResponseEntity<?> resourceNotFoundExceptionHandler(ResourceNotFoundException ex, WebRequest request) {
 
-		ErrorDetail details = new ErrorDetail(ex.getMessage(), request.getDescription(false),
-				Calendar.getInstance().getTime());
-		logger.error("recordNotFoundException: ", ex.getMessage());
-		return new ResponseEntity<>(details, HttpStatus.NOT_FOUND);
+		logger.error("resourceNotFoundExceptionHandler: ", ex);
+
+		return new ResponseEntity<>(
+				GenerateResponse.getErrorResponse(ErrorCode.EC001.getCode(), ErrorCode.EC001.getDescription(), null),
+				HttpStatus.NOT_FOUND);
 	}
 
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<?> globalExceptionHandler(Exception ex, WebRequest request) {
-		ErrorDetail details = new ErrorDetail(ex.getMessage(), "Failed Transaction from backend server",
-				Calendar.getInstance().getTime());
-		logger.error("globalExceptionHandler: ", ex.getMessage());
-		return new ResponseEntity<>(details, HttpStatus.INTERNAL_SERVER_ERROR);
+		logger.error("globalExceptionHandler: ", ex);
+		return new ResponseEntity<>(
+				GenerateResponse.getErrorResponse(ErrorCode.EC002.getCode(), ErrorCode.EC002.getDescription(), null),
+				HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
 
+		logger.error("handleMethodArgumentNotValid", ex);
+
 		String collect = ex.getBindingResult().getFieldErrors().stream().map(error -> error.getDefaultMessage())
 				.collect(Collectors.joining(","));
 
-		ErrorDetail details = new ErrorDetail(collect, request.getDescription(false),
-				Calendar.getInstance().getTime());
-
-		return new ResponseEntity<>(details, status);
-
+		return new ResponseEntity<>(
+				GenerateResponse.getErrorResponse(ErrorCode.EC002.getCode(), ErrorCode.EC002.getDescription(), collect),
+				HttpStatus.BAD_REQUEST);
 	}
 
 }

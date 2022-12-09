@@ -24,6 +24,7 @@ import com.star.sud.mapping.entity.State;
 import com.star.sud.mapping.entity.User;
 import com.star.sud.mapping.repository.UserRespository;
 import com.star.sud.mapping.util.DateUtil;
+import com.star.sud.mapping.util.GenerateResponse;
 import com.star.sud.mapping.util.LoginUtil;
 
 @Service
@@ -43,14 +44,14 @@ public class UserService {
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/users/{id}")
 				.buildAndExpand(save.getUserId()).toUri();
 
-		return ResponseEntity.created(location).body(userDto);
+		return ResponseEntity.created(location).body(GenerateResponse.getSuccessResponse(userDto));
 	}
 
-	public List<UserDto> getUsers() {
+	public ResponseEntity<Object> getUsers() {
 
 		List<UserDto> users = userRepository.findAll().stream().map(user -> copyUserObject(user))
 				.collect(Collectors.toList());
-		return users;
+		return ResponseEntity.ok(GenerateResponse.getSuccessResponse(users));
 	}
 
 	public ResponseEntity<Object> getUsersById(String userId) throws Exception {
@@ -59,7 +60,7 @@ public class UserService {
 
 		UserDto dto = new UserDto();
 		BeanUtils.copyProperties(user, dto);
-		return ResponseEntity.ok(dto);
+		return ResponseEntity.ok(GenerateResponse.getSuccessResponse(dto));
 
 	}
 
@@ -69,14 +70,14 @@ public class UserService {
 		entity.setUserId(id);
 		User save = userRepository.save(entity);
 		BeanUtils.copyProperties(save, request);
-		return ResponseEntity.ok(request);
+		return ResponseEntity.ok(GenerateResponse.getSuccessResponse(request));
 	}
 
 	public ResponseEntity<Object> deleteUser(String userId) throws Exception {
 		User user = userRepository.findById(userId)
 				.orElseThrow(() -> new ResourceNotFoundException("No record found for the userId: " + userId));
 		userRepository.delete(user);
-		return ResponseEntity.ok("Successfully Deleted");
+		return ResponseEntity.ok(GenerateResponse.getSuccessResponse("Successfully Deleted"));
 	}
 
 	// Helper Methods
@@ -129,7 +130,6 @@ public class UserService {
 	}
 
 	private UserDto copyUserObject(User user) {
-		user.setGender(new Gender());
 		UserDto dto = new UserDto();
 		BeanUtils.copyProperties(user, dto);
 		return dto;

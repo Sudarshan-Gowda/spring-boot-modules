@@ -1,7 +1,5 @@
 package com.star.sud.mapping.controller;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +24,7 @@ public class UserController {
 	private UserService userService;
 
 	@GetMapping(value = "/users")
-	public List<UserDto> getUsers() {
+	public ResponseEntity<Object> getUsers() {
 		return userService.getUsers();
 	}
 
