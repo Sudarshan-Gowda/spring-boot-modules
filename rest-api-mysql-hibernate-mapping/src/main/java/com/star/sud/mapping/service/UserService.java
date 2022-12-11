@@ -2,6 +2,7 @@ package com.star.sud.mapping.service;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
@@ -39,18 +40,19 @@ public class UserService {
 		User entity = createUserFromDto(request);
 		User save = userRepository.save(entity);
 
-		UserDto userDto = createUserDtoFromUser(save, request);
+		UserDto response = createUserDtoFromUser(save);
 
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/users/{id}")
 				.buildAndExpand(save.getUserId()).toUri();
 
-		return ResponseEntity.created(location).body(GenerateResponse.getSuccessResponse(userDto));
+		return ResponseEntity.created(location).body(GenerateResponse.getSuccessResponse(response));
 	}
 
-	public ResponseEntity<Object> getUsers() {
+	public ResponseEntity<Object> getUsers() throws Exception {
 
-		List<UserDto> users = userRepository.findAll().stream().map(user -> copyUserObject(user))
+		List<UserDto> users = userRepository.findAll().stream().map(user -> createUserDtoFromUser(user))
 				.collect(Collectors.toList());
+
 		return ResponseEntity.ok(GenerateResponse.getSuccessResponse(users));
 	}
 
@@ -58,19 +60,20 @@ public class UserService {
 		User user = userRepository.findById(userId)
 				.orElseThrow(() -> new ResourceNotFoundException("No record found for userId: " + userId));
 
-		UserDto dto = new UserDto();
-		BeanUtils.copyProperties(user, dto);
-		return ResponseEntity.ok(GenerateResponse.getSuccessResponse(dto));
+		return ResponseEntity.ok(GenerateResponse.getSuccessResponse(createUserDtoFromUser(user)));
 
 	}
 
-	public ResponseEntity<Object> updateUser(String id, UserDto request) {
-		User entity = new User();
-		BeanUtils.copyProperties(request, entity);
-		entity.setUserId(id);
-		User save = userRepository.save(entity);
-		BeanUtils.copyProperties(save, request);
-		return ResponseEntity.ok(GenerateResponse.getSuccessResponse(request));
+	public ResponseEntity<Object> updateUser(String userId, UserDto request) throws Exception {
+
+		User user = userRepository.findById(userId)
+				.orElseThrow(() -> new ResourceNotFoundException("No record found for the userId: " + userId));
+
+		User entity = updateUserFromDto(request, user);
+		User entityUpdated = userRepository.saveAndFlush(entity);
+		UserDto response = new UserDto();
+		BeanUtils.copyProperties(entityUpdated, response);
+		return ResponseEntity.ok(GenerateResponse.getSuccessResponse(response));
 	}
 
 	public ResponseEntity<Object> deleteUser(String userId) throws Exception {
@@ -97,20 +100,50 @@ public class UserService {
 		entity.setCreatedBy(LoginUtil.loggedInUser());
 
 		if (request.getAddressDetails() != null && request.getAddressDetails().size() > 0) {
-			List<AddressDetails> address = request.getAddressDetails().stream().map(a -> createAddress(a))
-					.collect(Collectors.toList());
+			Set<AddressDetails> address = request.getAddressDetails().stream().map(a -> createAddress(a, entity))
+					.collect(Collectors.toSet());
 			entity.setAddressDetails(address);
 		}
 
 		if (request.getRoles() != null && request.getRoles().size() > 0) {
-			List<Role> roles = request.getRoles().stream().map(r -> createRoles(r)).collect(Collectors.toList());
+			Set<Role> roles = request.getRoles().stream().map(r -> createRoles(r)).collect(Collectors.toSet());
 			entity.setRoles(roles);
 		}
 
 		return entity;
 	}
 
-	private UserDto createUserDtoFromUser(User user, UserDto userDto) throws Exception {
+	private User updateUserFromDto(UserDto request, User entity) throws Exception {
+
+		BeanUtils.copyProperties(request, entity, "userName", "email", "password", "userId");
+
+		if (request.getGender() != null)
+			entity.setGender(new Gender(request.getGender()));
+
+		if (request.getDob() != null)
+			entity.setDob(DateUtil.getDateFromString(request.getDob()));
+
+		// TODO: Get the user details from the security context
+		entity.setUpdatedBy(LoginUtil.loggedInUser());
+		entity.setUpdatedDate(DateUtil.getCurrentDate());
+
+		if (request.getAddressDetails() != null && request.getAddressDetails().size() > 0) {
+
+			Set<AddressDetails> address = request.getAddressDetails().stream().map(a -> createAddress(a, entity))
+					.collect(Collectors.toSet());
+			entity.setAddressDetails(address);
+		}
+
+		if (request.getRoles() != null && request.getRoles().size() > 0) {
+			Set<Role> roles = request.getRoles().stream().map(r -> createRoles(r)).collect(Collectors.toSet());
+			entity.setRoles(roles);
+		}
+
+		return entity;
+	}
+
+	private UserDto createUserDtoFromUser(User user) {
+		UserDto userDto = new UserDto();
 		BeanUtils.copyProperties(user, userDto);
 		if (user.getDob() != null)
 			userDto.setDob(DateUtil.getDateInStringFmInputDate(user.getDob()));
@@ -129,18 +162,13 @@ public class UserService {
 		return userDto;
 	}
 
-	private UserDto copyUserObject(User user) {
-		UserDto dto = new UserDto();
-		BeanUtils.copyProperties(user, dto);
-		return dto;
-	}
-
-	private AddressDetails createAddress(AddressDetailsDto addressDto) {
+	private AddressDetails createAddress(AddressDetailsDto addressDto, User user) {
 		AddressDetails address = new AddressDetails();
 		address.setCity(new City(addressDto.getCity()));
 		address.setState(new State(addressDto.getState()));
 		BeanUtils.copyProperties(addressDto, address);
 		address.setCreatedBy(LoginUtil.loggedInUser());
+		address.setUser(user);
 		return address;
 	}
 

@@ -46,7 +46,7 @@ public class DateUtil {
 		return date;
 	}
 
-	public static String getDateInStringFmInputDate(Date input) throws ParseException {
+	public static String getDateInStringFmInputDate(Date input) {
 		SimpleDateFormat sdf = new SimpleDateFormat(API_DATE_FORMAT);
 		return sdf.format(input);
 	}

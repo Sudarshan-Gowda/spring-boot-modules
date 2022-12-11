@@ -24,7 +24,7 @@ public class UserController {
 	private UserService userService;
 
 	@GetMapping(value = "/users")
-	public ResponseEntity<Object> getUsers() {
+	public ResponseEntity<Object> getUsers() throws Exception {
 		return userService.getUsers();
 	}
 
@@ -39,7 +39,8 @@ public class UserController {
 	}
 
 	@PutMapping(value = "/users/{userId}")
-	public ResponseEntity<Object> updateUser(@PathVariable("userId") String id, @RequestBody UserDto request) {
+	public ResponseEntity<Object> updateUser(@PathVariable("userId") String id, @RequestBody UserDto request)
+			throws Exception {
 		return userService.updateUser(id, request);
 	}
 

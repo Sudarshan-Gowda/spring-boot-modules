@@ -1,8 +1,9 @@
 package com.star.sud.mapping.entity;
 
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -55,22 +56,22 @@ public class User extends AbstractEntity {
 	private String lastName;
 
 	@OneToOne
-	@JoinColumn(name = "GENDER", referencedColumnName = "CODE", unique = false)
+	@JoinColumn(name = "GENDER", referencedColumnName = "CODE", unique = false, nullable = false)
 	private Gender gender;
 
 	@Column(name = "DOB")
 	@Temporal(TemporalType.DATE)
 	private Date dob;
 
-	@OneToMany(mappedBy = "user")
-	private List<AddressDetails> addressDetails;
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private Set<AddressDetails> addressDetails;
 
 	// Mapped Entities
 	///////////////////
 	@ManyToMany
 	@JoinTable(name = "USER_ROLE", joinColumns = { @JoinColumn(name = "USER_ID") }, inverseJoinColumns = {
 			@JoinColumn(name = "ROLE_ID") })
-	private List<Role> roles;
+	private Set<Role> roles;
 
 	// Getter & Setters
 	///////////////////
@@ -126,19 +127,19 @@ public class User extends AbstractEntity {
 		return serialVersionUID;
 	}
 
-	public List<Role> getRoles() {
+	public Set<Role> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(List<Role> roles) {
+	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
 
-	public List<AddressDetails> getAddressDetails() {
+	public Set<AddressDetails> getAddressDetails() {
 		return addressDetails;
 	}
 
-	public void setAddressDetails(List<AddressDetails> addressDetails) {
+	public void setAddressDetails(Set<AddressDetails> addressDetails) {
 		this.addressDetails = addressDetails;
 	}
 

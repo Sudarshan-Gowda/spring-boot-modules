@@ -27,8 +27,8 @@ public class AddressDetails extends AbstractEntity {
 	@Column(name = "ADDRESS_TYPE", nullable = false, length = 10)
 	private String addressType;
 
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "USER_ID")
 	private User user;
 
 	@Column(name = "ADDRESS_LINE_01", nullable = false)
@@ -41,11 +41,11 @@ public class AddressDetails extends AbstractEntity {
 	private String addressLine03;
 
 	@OneToOne
-	@JoinColumn(name = "CITY", referencedColumnName = "CODE")
+	@JoinColumn(name = "CITY", referencedColumnName = "CODE", nullable = false)
 	private City city;
 
 	@OneToOne
-	@JoinColumn(name = "STATE", referencedColumnName = "CODE")
+	@JoinColumn(name = "STATE", referencedColumnName = "CODE", nullable = false)
 	private State state;
 
 	@Column(name = "PIN_CODE", nullable = false)
