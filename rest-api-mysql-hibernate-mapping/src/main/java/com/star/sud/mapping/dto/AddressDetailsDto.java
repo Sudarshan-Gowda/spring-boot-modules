@@ -2,8 +2,11 @@ package com.star.sud.mapping.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(Include.NON_NULL)
+@JsonPropertyOrder({ "addressId", "addressType", "addressLine01", "addressLine02", "addressLine03", "city", "state",
+		"pinCode", "landMark", "primaryContactNumber", "secondaryContactNumber" })
 public class AddressDetailsDto extends AbstractDto {
 
 	private static final long serialVersionUID = 5864862800045264927L;

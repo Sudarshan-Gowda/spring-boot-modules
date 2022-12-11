@@ -2,6 +2,7 @@ package com.star.sud.mapping.service;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -71,8 +72,7 @@ public class UserService {
 
 		User entity = updateUserFromDto(request, user);
 		User entityUpdated = userRepository.saveAndFlush(entity);
-		UserDto response = new UserDto();
-		BeanUtils.copyProperties(entityUpdated, response);
+		UserDto response = createUserDtoFromUser(entityUpdated);
 		return ResponseEntity.ok(GenerateResponse.getSuccessResponse(response));
 	}
 
@@ -163,11 +163,26 @@ public class UserService {
 	}
 
 	private AddressDetails createAddress(AddressDetailsDto addressDto, User user) {
-		AddressDetails address = new AddressDetails();
+		AddressDetails address = null;
+		if (user.getAddressDetails() != null) {
+			Optional<AddressDetails> addressOption = user.getAddressDetails().stream()
+					.filter(a -> a.getAddressType().equalsIgnoreCase(addressDto.getAddressType())).findFirst();
+			if (addressOption.isPresent()) {
+				address = addressOption.get();
+				address.setUpdatedBy(LoginUtil.loggedInUser());
+				address.setUpdatedDate(DateUtil.getCurrentDate());
+			}
+		}
+
+		if (address == null) {
+			address = new AddressDetails();
+			address.setCreatedDate(DateUtil.getCurrentDate());
+			address.setCreatedBy(LoginUtil.loggedInUser());
+		}
+
 		address.setCity(new City(addressDto.getCity()));
 		address.setState(new State(addressDto.getState()));
-		BeanUtils.copyProperties(addressDto, address);
-		address.setCreatedBy(LoginUtil.loggedInUser());
+		BeanUtils.copyProperties(addressDto, address, "addressId", "createdDate", "createdBy", "updatedBy");
 		address.setUser(user);
 		return address;
 	}
