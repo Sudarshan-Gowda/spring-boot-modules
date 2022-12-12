@@ -38,6 +38,11 @@ public class UserService {
 
 	public ResponseEntity<Object> createUser(UserDto request) throws Exception {
 
+		int validateUserContrainsts = userRepository.validateUserContrainsts(request.getUserName(), request.getEmail());
+		if (validateUserContrainsts > 0)
+			throw new ResourceNotFoundException(
+					"User Record already exists, please try again with different userName or email");
+
 		User entity = createUserFromDto(request);
 		User save = userRepository.save(entity);
 

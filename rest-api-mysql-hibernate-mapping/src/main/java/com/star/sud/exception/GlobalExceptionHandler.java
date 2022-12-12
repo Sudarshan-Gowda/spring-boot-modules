@@ -48,7 +48,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 				.collect(Collectors.joining(","));
 
 		return new ResponseEntity<>(
-				GenerateResponse.getErrorResponse(ErrorCode.EC002.getCode(), ErrorCode.EC002.getDescription(), collect),
+				GenerateResponse.getErrorResponse(ErrorCode.EC001.getCode(), ErrorCode.EC001.getDescription(), collect),
 				HttpStatus.BAD_REQUEST);
 	}
 

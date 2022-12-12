@@ -40,4 +40,13 @@ public class GenerateResponse {
 		return error;
 	}
 
+	private static ErrorDetail getErrorDetail(String code, String message, String detail, String severity) {
+		ErrorDetail errorDetail = new ErrorDetail();
+		errorDetail.setCode(code);
+		errorDetail.setMessage(message);
+		errorDetail.setDetails(detail);
+		errorDetail.setSeverityLevel(severity);
+		return errorDetail;
+	}
+
 }
