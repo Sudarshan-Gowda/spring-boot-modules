@@ -48,7 +48,7 @@ public class UserService {
 
 		UserDto response = createUserDtoFromUser(save);
 
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/users/{id}")
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/mapping/users/{id}")
 				.buildAndExpand(save.getUserId()).toUri();
 
 		return ResponseEntity.created(location).body(GenerateResponse.getSuccessResponse(response));
@@ -76,7 +76,7 @@ public class UserService {
 				.orElseThrow(() -> new ResourceNotFoundException("No record found for the userId: " + userId));
 
 		User entity = updateUserFromDto(request, user);
-		User entityUpdated = userRepository.saveAndFlush(entity);
+		User entityUpdated = userRepository.save(entity);
 		UserDto response = createUserDtoFromUser(entityUpdated);
 		return ResponseEntity.ok(GenerateResponse.getSuccessResponse(response));
 	}
