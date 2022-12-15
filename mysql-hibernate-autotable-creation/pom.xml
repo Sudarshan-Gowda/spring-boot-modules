@@ -20,6 +20,7 @@
 		<sonar.coverage.exclusions>
 			**/ErrorDetails.java, **/RestApiMysqlHibernateMappingApplication.java,
 			**/User.java, **/GlobalExceptionHandler.java, **/ResourceNotFoundException.java
+			**/DataLoader.java
 		</sonar.coverage.exclusions>
 	</properties>
 
