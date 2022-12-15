@@ -60,6 +60,7 @@ public class DataLoader implements ApplicationRunner {
 
 	}
 
+	@Override
 	public void run(ApplicationArguments args) {
 
 		persist(genderRepo, Gender::getCode, code -> new Gender(code, genderMap.get(code), status), genderMap.keySet());
@@ -72,7 +73,7 @@ public class DataLoader implements ApplicationRunner {
 
 	}
 
-	public <T, ID> void persist(JpaRepository<T, ID> repo, Function<T, String> mapperFunction,
+	private <T, ID> void persist(JpaRepository<T, ID> repo, Function<T, String> mapperFunction,
 			Function<String, T> exctractFunction, Set<String> newList) {
 
 		List<String> existingGender = Optional.ofNullable(repo.findAll()).map(Collection::stream).orElse(Stream.empty())
