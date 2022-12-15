@@ -54,7 +54,7 @@ class UserControllerTest {
 	@Autowired
 	private ObjectMapper mapper;
 
-	// @Test
+	@Test
 	void getUserList() throws Exception {
 		List<UserDto> dto = mockDto();
 
@@ -68,7 +68,7 @@ class UserControllerTest {
 				.andExpect(jsonPath("$.data.[0].email").value("sudarshan@gmail.com"));
 	}
 
-	// @Test
+	@Test
 	void createUserTest() throws Exception {
 
 		RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(new MockHttpServletRequest()));
@@ -109,7 +109,7 @@ class UserControllerTest {
 
 	}
 
-	// @Test
+	@Test
 	void deleteUserTest() throws Exception {
 
 		when(service.deleteUser(Mockito.anyString()))

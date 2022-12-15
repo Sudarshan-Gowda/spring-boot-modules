@@ -37,6 +37,7 @@ import com.star.sud.mapping.repository.UserRespository;
 import com.star.sud.mapping.service.UserService;
 import com.star.sud.mapping.util.DateUtil;
 
+@SuppressWarnings("unchecked")
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {
 
@@ -49,7 +50,6 @@ class UserServiceTest {
 	@Autowired
 	ObjectMapper mapper;
 
-	@SuppressWarnings("unchecked")
 	@Test
 	void getUsersTest() throws Exception {
 
@@ -83,7 +83,6 @@ class UserServiceTest {
 		assertEquals(String.format("http://localhost/mapping/users/%s", user.getUserId()), list.get(0));
 	}
 
-	@SuppressWarnings("unchecked")
 	@Test
 	void updateuserTest() throws Exception {
 		User mockEntity = mockEntity().get(0);
