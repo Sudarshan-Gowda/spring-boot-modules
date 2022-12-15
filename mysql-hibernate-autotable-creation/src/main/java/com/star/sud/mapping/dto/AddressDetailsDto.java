@@ -35,6 +35,21 @@ public class AddressDetailsDto extends AbstractDto {
 
 	private String secondaryContactNumber;
 
+	public AddressDetailsDto() {
+		super();
+	}
+
+	public AddressDetailsDto(Integer addressId, String addressType, String userId, String addressLine01,
+			String addressLine02, String addressLine03) {
+		super();
+		this.addressId = addressId;
+		this.addressType = addressType;
+		this.userId = userId;
+		this.addressLine01 = addressLine01;
+		this.addressLine02 = addressLine02;
+		this.addressLine03 = addressLine03;
+	}
+
 	public Integer getAddressId() {
 		return addressId;
 	}

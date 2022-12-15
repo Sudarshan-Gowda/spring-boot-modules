@@ -60,6 +60,41 @@ public class AddressDetails extends AbstractEntity {
 	@Column(name = "SECONDARY_CONTACT_NUMBER")
 	private String secondaryContactNumber;
 
+	// Constructors
+	///////////////////
+	public AddressDetails() {
+		super();
+	}
+
+	public AddressDetails(Integer addressId, String addressType, User user, String addressLine01, String addressLine02,
+			String addressLine03) {
+		super();
+		this.addressId = addressId;
+		this.addressType = addressType;
+		this.user = user;
+		this.addressLine01 = addressLine01;
+		this.addressLine02 = addressLine02;
+		this.addressLine03 = addressLine03;
+	}
+
+	public AddressDetails(Integer addressId, String addressType, User user, String addressLine01, String addressLine02,
+			String addressLine03, City city, State state, String pinCode, String landMark, String primaryContactNumber,
+			String secondaryContactNumber) {
+		super();
+		this.addressId = addressId;
+		this.addressType = addressType;
+		this.user = user;
+		this.addressLine01 = addressLine01;
+		this.addressLine02 = addressLine02;
+		this.addressLine03 = addressLine03;
+		this.city = city;
+		this.state = state;
+		this.pinCode = pinCode;
+		this.landMark = landMark;
+		this.primaryContactNumber = primaryContactNumber;
+		this.secondaryContactNumber = secondaryContactNumber;
+	}
+
 	public Integer getAddressId() {
 		return addressId;
 	}

@@ -35,6 +35,18 @@ public class Role extends AbstractEntity {
 		this.roleId = roleId;
 	}
 
+	public Role(Integer roleId, String roleName) {
+		super();
+		this.roleId = roleId;
+		this.roleName = roleName;
+	}
+
+	public Role(String roleName, String status) {
+		super();
+		this.roleName = roleName;
+		this.status = status;
+	}
+
 	// Getters & Setters
 	//////////////
 	@Override

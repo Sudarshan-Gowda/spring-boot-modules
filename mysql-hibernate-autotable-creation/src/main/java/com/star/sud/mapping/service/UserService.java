@@ -38,12 +38,17 @@ public class UserService {
 
 	public ResponseEntity<Object> createUser(UserDto request) throws Exception {
 
+		int validateUserContrainsts = userRepository.validateUserContrainsts(request.getUserName(), request.getEmail());
+		if (validateUserContrainsts > 0)
+			throw new ResourceNotFoundException(
+					"User Record already exists, please try again with different userName or email");
+
 		User entity = createUserFromDto(request);
 		User save = userRepository.save(entity);
 
 		UserDto response = createUserDtoFromUser(save);
 
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/users/{id}")
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/mapping/users/{id}")
 				.buildAndExpand(save.getUserId()).toUri();
 
 		return ResponseEntity.created(location).body(GenerateResponse.getSuccessResponse(response));
@@ -71,7 +76,7 @@ public class UserService {
 				.orElseThrow(() -> new ResourceNotFoundException("No record found for the userId: " + userId));
 
 		User entity = updateUserFromDto(request, user);
-		User entityUpdated = userRepository.saveAndFlush(entity);
+		User entityUpdated = userRepository.save(entity);
 		UserDto response = createUserDtoFromUser(entityUpdated);
 		return ResponseEntity.ok(GenerateResponse.getSuccessResponse(response));
 	}

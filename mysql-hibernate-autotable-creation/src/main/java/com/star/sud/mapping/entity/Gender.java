@@ -39,6 +39,13 @@ public class Gender extends AbstractEntity {
 		this.name = name;
 	}
 
+	public Gender(String code, String name, String status) {
+		super();
+		this.code = code;
+		this.name = name;
+		this.status = status;
+	}
+
 	public String getCode() {
 		return code;
 	}

@@ -73,6 +73,52 @@ public class User extends AbstractEntity {
 			@JoinColumn(name = "ROLE_ID") })
 	private Set<Role> roles;
 
+	// Constructors
+	/////////////////
+	public User() {
+		super();
+	}
+
+	public User(String userId, String userName, String password, String email, String firstName, String lastName,
+			Date dob) {
+		super();
+		this.userId = userId;
+		this.userName = userName;
+		this.password = password;
+		this.email = email;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.dob = dob;
+	}
+
+	public User(String userId, String userName, String password, String email, String firstName, String lastName,
+			Gender gender, Date dob) {
+		super();
+		this.userId = userId;
+		this.userName = userName;
+		this.password = password;
+		this.email = email;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.gender = gender;
+		this.dob = dob;
+	}
+
+	public User(String userId, String userName, String password, String email, String firstName, String lastName,
+			Gender gender, Date dob, Set<AddressDetails> addressDetails, Set<Role> roles) {
+		super();
+		this.userId = userId;
+		this.userName = userName;
+		this.password = password;
+		this.email = email;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.gender = gender;
+		this.dob = dob;
+		this.addressDetails = addressDetails;
+		this.roles = roles;
+	}
+
 	// Getter & Setters
 	///////////////////
 	public String getUserId() {

@@ -35,6 +35,13 @@ public class State extends AbstractEntity {
 		this.code = code;
 	}
 
+	public State(String code, String name, String status) {
+		super();
+		this.code = code;
+		this.name = name;
+		this.status = status;
+	}
+
 	// Getter & Setters
 	////////////////////
 	public String getCode() {
